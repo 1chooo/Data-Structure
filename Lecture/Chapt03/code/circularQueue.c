@@ -7,7 +7,7 @@ typedef struct element {
   int key;
 } Element;
 
-element queue[MAX_QUEUE_SIZE];
+Element queue[MAX_QUEUE_SIZE];
 
 void addq(int front, int *rear, Element item) {
   *rear = (*rear + 1) % MAX_QUEUE_SIZE;
@@ -19,6 +19,10 @@ void addq(int front, int *rear, Element item) {
   }
 
   queue[*rear] = item;
+}
+
+void queue_empty() {
+  return;
 }
 
 Element deleteq(int *front, int rear) {
