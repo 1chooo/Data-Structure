@@ -6,13 +6,11 @@
 4. Refinement and coding
 5. Verification
 
-### Sort
-
-### Compare
-
-### Search
-
-### Recursive
+## **Intro to Algorithm**
+1. Sort
+2. Compare
+3. Search
+4. Recursive
 
 ## **Data Abstraction**
 
@@ -43,3 +41,29 @@ implementation-independent.
   * The component refers to space requirements that do not depend on the number and size of the program's inputs and outputs.
 * Variable space requirements.
   * $S(P) = c +S_{p}(I)$
+
+
+> $S_{abc}(I) = 0$
+> ``` c
+> /* Three inputs, this function has only fixed space requirements. */
+> float abc(float a, float b, float c) {
+>     return a + b + b * c + (a + b - c) / (a + b) + 4.00;
+> }
+> ```
+
+``` c
+/*  */
+float sum(float list[], int n) {
+    float tempSum = 0;
+    int i;
+
+    for (i = 0; i < n; i++) 
+        tempSum += list[i];
+    
+    return tempSum;
+}
+```
+
+### Time complexity
+
+#### Magic square
