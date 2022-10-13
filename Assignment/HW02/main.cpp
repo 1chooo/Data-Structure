@@ -1,7 +1,7 @@
 /* A Mazing Problem */
 
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 #define MAX_ARRAY_COL 500
 #define MAX_ARRAY_ROW 500
@@ -20,6 +20,8 @@ typedef struct element {
   short int dir;
 } Element;
 
+Element stack[MAX_STACK_SIZE];
+
 int main(void) {
   int row, col;
   int currentRow, currentCol, currentDir;
@@ -29,7 +31,6 @@ int main(void) {
   int top;
   int maze[MAX_ARRAY_ROW][MAX_ARRAY_COL] = {0};
   int mark[MAX_ARRAY_ROW][MAX_ARRAY_COL] = {0};
-  Element stack[MAX_STACK_SIZE];
   Element walk;
 
   scanf("%d %d", &row, &col);
@@ -45,21 +46,16 @@ int main(void) {
   }
 
   mark[1][1] = 1;
-  top = 1;
+  top = 0;
   stack[0].row = 1;
   stack[0].col = 1;
   stack[0].dir = 0;
 
   while (top > -1 && found != 1) {
-    top--;
-
-    walk.row = stack[top].row;
-    walk.col = stack[top].col;
-    walk.dir = stack[top].dir;
-
-    currentRow = walk.row;
-    currentCol = walk.col;
-    currentDir = walk.dir;
+    
+    currentRow = stack[top].row;
+    currentCol = stack[top].col;
+    currentDir = stack[top].dir;
 
     while (currentDir < 4 && found != 1) {
       nextRow = currentRow + move[currentDir].vert;
@@ -96,10 +92,11 @@ int main(void) {
         currentRow = nextRow;
         currentCol = nextCol;
         currentDir = 0;
-      } else {
+      } else 
         currentDir++;
-      }
     }
+
+    top--;
   }
 
   if (top == -1) {
