@@ -2,6 +2,7 @@
 #include "stdlib.h"
 
 #define MAX_TERMS 101
+#define MAX_COL 100
 
 typedef struct term {
   int col;
@@ -42,7 +43,8 @@ void fastTranspose(Term a[], Term b[]) {
   int i, j, num_cols = a[0].col, num_terms = a[0].value;
 
   b[0].row = num_cols;
-  b[0].col = num_terms;
+  b[0].col = a[0].row;
+  b[0].value = num_terms;
 
   if (num_terms > 0) {
 
@@ -136,7 +138,7 @@ void storesum(term d[], int *totald, int row, int column, int *sum) //相加儲�
       d[*totald].value = *sum;
       *sum = 0;
     } else {
-      fprintf(stderr, "Numbers of terms in productexceed %d\n", MAX_TERMS);
+      fprintf(stderr, "Numbers of terms in product exceed %d\n", MAX_TERMS);
       exit(1);
     }
   }

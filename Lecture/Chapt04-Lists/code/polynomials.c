@@ -29,7 +29,7 @@ polyPointer padd(polyPointer a, polyPointer b) {
     exit(1); 
   }
 
-  front rear; 
+  front = rear; 
   
   while (a && b)
     switch (COMPARE(a -> expon, b -> expon)) { 

@@ -3,6 +3,8 @@
     "files.associations": {
         "stdio.h": "c",
         "functional": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "__node_handle": "c",
+        "complex": "c"
     }
 }
