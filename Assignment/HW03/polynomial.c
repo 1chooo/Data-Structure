@@ -1,3 +1,5 @@
+// segmentation fault
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
@@ -12,16 +14,15 @@ typedef struct polyNode {
 } PolyNode; 
 
 PolyNode *createNode(int, int);
-
+PolyNode *linkNode(PolyNode*, PolyNode*, int);
 PolyNode *addList(PolyNode*, PolyNode*);
 
 void showAns(PolyNode*);
 
 int main(void) {
-
   int N, M;
   PolyNode *first = NULL, *second = NULL, *ans = NULL;
-  PolyNode *temp = NULL, *lastNode = NULL;
+  PolyNode *temp = NULL;
 
   scanf("%d", &N);
   for (int i = 0; i < N; i++) {
@@ -30,15 +31,9 @@ int main(void) {
     scanf("%d %d", &coef, &expon);
     temp = createNode(coef, expon);
 
-    if (i == 0) {
-      first = temp;
-      lastNode = temp;
-    } else {
-      lastNode->next = temp;
-      lastNode = temp;
-    }
+    linkNode(first, temp, i);
   }
-  
+
   scanf("%d", &M);
   for (int i = 0; i < M; i++) {
     int coef, expon;
@@ -46,15 +41,9 @@ int main(void) {
     scanf("%d %d", &coef, &expon);
     temp = createNode(coef, expon);
 
-    if (i == 0) {
-      second = temp;
-      lastNode = temp;
-    } else {
-      lastNode->next = temp;
-      lastNode = temp;
-    }
+    linkNode(second, temp, i);
   }
-  
+
   ans = addList(first, second);
   showAns(ans);
 
@@ -65,8 +54,8 @@ int main(void) {
 
 PolyNode *createNode(int coef, int expon) {
 
-  PolyNode *newNode = (PolyNode *)malloc(sizeof(PolyNode));
-  
+  PolyNode *newNode = (PolyNode *) malloc(sizeof(PolyNode));
+
   newNode->coef = coef;
   newNode->expon = expon;
   newNode->next = NULL;
@@ -74,13 +63,30 @@ PolyNode *createNode(int coef, int expon) {
   return newNode;
 }
 
-PolyNode *addList(PolyNode *first, PolyNode *second) {
 
+PolyNode *linkNode(PolyNode *polynomial, PolyNode* node, int index) {
+
+  PolyNode *temp = NULL, *lastNode = NULL;
+
+  temp = node;
+
+  if (index == 0) {
+    polynomial = temp;
+    lastNode = temp;
+  } else {
+    lastNode->next = temp;
+    lastNode = temp;
+  }
+
+  return polynomial;
+}
+
+PolyNode *addList(PolyNode *first, PolyNode *second) {
   PolyNode *ans = NULL;
   PolyNode *temp = NULL;
 
-  while (first && second)   {
-    if (first->expon > second->expon) { /* first greater than second*/
+  while (first && second) {
+    if (first->expon > second->expon) {
       if (!ans) {
         ans = createNode(first->coef, first->expon);
         temp = ans;
@@ -90,7 +96,7 @@ PolyNode *addList(PolyNode *first, PolyNode *second) {
       }
 
       first = first->next;
-    } else if (first->expon < second->expon) { /* first smaller than second*/
+    } else if (first->expon < second->expon) {
       if (!ans) {
         ans = createNode(second->coef, second->expon);
         temp = ans;
@@ -120,6 +126,7 @@ PolyNode *addList(PolyNode *first, PolyNode *second) {
     temp = temp->next;
     first = first->next;
   }
+
   while (second) {
     temp->next = createNode(second->coef, second->expon);
     temp = temp->next;
@@ -129,8 +136,8 @@ PolyNode *addList(PolyNode *first, PolyNode *second) {
   return ans;
 }
 
-void showAns(PolyNode *ans) {
 
+void showAns(PolyNode *ans) {
   while (ans) {
     if (ans->coef != 0) {
       print("%d %d ", ans->coef, ans->expon);

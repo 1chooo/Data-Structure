@@ -14,6 +14,9 @@ typedef struct offsets {
 
 Offsets move[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
+int maze[MAX_ARRAY_ROW][MAX_ARRAY_COL];
+int mark[MAX_ARRAY_ROW][MAX_ARRAY_COL];
+
 typedef struct element {
   short int row;
   short int col;
@@ -29,8 +32,6 @@ int main(void) {
   int exitRow, exitCol;
   int found = 0;
   int top;
-  int maze[MAX_ARRAY_ROW][MAX_ARRAY_COL] = {0};
-  int mark[MAX_ARRAY_ROW][MAX_ARRAY_COL] = {0};
   Element walk;
 
   scanf("%d %d", &row, &col);
@@ -78,16 +79,12 @@ int main(void) {
       
       if (maze[nextRow][nextCol] == 0 && mark[nextRow][nextCol] == 0) {
         mark[nextRow][nextCol] = 1;
-
-        walk.row = nextRow;
-        walk.col = nextCol;
-        walk.dir = currentDir++;
+        
+        stack[top].row = currentRow;
+        stack[top].col = currentCol;
+        stack[top].dir = currentDir;
 
         top++;
-
-        stack[top - 1].row = currentRow;
-        stack[top - 1].col = currentCol;
-        stack[top - 1].dir = currentDir;
 
         currentRow = nextRow;
         currentCol = nextCol;
