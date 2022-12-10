@@ -30,6 +30,8 @@ tree_pointer copy(tree_pointer);
 int equal(tree_pointer, tree_pointer);
 
 int main(void) {
+
+
   return 0;
 }
 

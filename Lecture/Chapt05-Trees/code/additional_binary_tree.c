@@ -30,14 +30,17 @@ for (all 2^n possible combinations) {
 printf("No satisfiable combination\n");
 
 
-void pos_order_eval(tree_pointer node) {
+void post_order_eval(tree_pointer node) {
+
   /* 
    modified post order traversal to evaluate a 
    propositional calculus tree.
   */
+
   if (node) {
     post_order_eval(node->left_child);
     post_order_eval(node->right_child);
+    
     switch (node->data)
     {
     case not :

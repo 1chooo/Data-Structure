@@ -44,8 +44,5 @@ int main(){
         else v[i] = t[0];
     }
 
-    for (int i = 0; i < N; i++) {
-      cout << v[i] << " ";
-    }
     cout << post_order(1);
 }
